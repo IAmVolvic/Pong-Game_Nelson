@@ -55,6 +55,7 @@ public class Ball extends Actor
             checkBounceOffWalls();
             checkBounceOffCeiling();
             touchedFloor();
+            touchesPaddles();
             //checkRestart();
         }
     }    
@@ -83,10 +84,30 @@ public class Ball extends Actor
         return (getY() >= getWorld().getHeight() - BALL_SIZE/2);
     }
     
-    
+    // Code Added
+    /**
+     * If touches the the floor, bounces the ball back from a vertical surface.
+     */
     private void touchedFloor()
     {
         if(isTouchingFloor())
+        {
+            revertVertically();
+        }
+    }
+    
+    
+    /**
+     * 
+     */
+    private void touchesPaddles()
+    {
+        if(getY() <= 626 && isTouching(Paddle.class))
+        {
+            revertVertically();
+        }
+        
+        if(getY() >= 35 && isTouching(EnemyPaddle.class))
         {
             revertVertically();
         }
