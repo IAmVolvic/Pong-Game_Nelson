@@ -1,0 +1,31 @@
+import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+
+/**
+ * Write a description of class GameOverText here.
+ * 
+ * @author (your name) 
+ * @version (a version number or a date)
+ */
+public class GameOverText extends Actor
+{
+    /**
+     * Act - do whatever the GameOverText wants to do. This method is called whenever
+     * the 'Act' or 'Run' button gets pressed in the environment.
+     */
+    
+    private int x = 250;
+    private int y = 657;
+    public GameOverText()
+    {
+        creatImage();
+    }
+    public void act()
+    {
+        setLocation(getX(), getY() - 1);
+    }
+    
+    public void creatImage()
+    {
+        setImage(new GreenfootImage("GAME OVER", 40, Color.WHITE, Color.RED));
+    }
+}

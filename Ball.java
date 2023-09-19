@@ -13,7 +13,8 @@ public class Ball extends Actor
     private static final int BOUNCE_DEVIANCE_MAX = 5;
     private static final int STARTING_ANGLE_WIDTH = 90;
     private static final int DELAY_TIME = 100;
-
+    
+    private boolean touchedLowerPaddle;
     private int speed;
     private boolean hasBouncedHorizontally;
     private boolean hasBouncedVertically;
@@ -33,9 +34,9 @@ public class Ball extends Actor
      */
     private void createImage()
     {
-        GreenfootImage ballImage = new GreenfootImage(BALL_SIZE,BALL_SIZE);
-        ballImage.setColor(Color.BLACK);
-        ballImage.fillOval(0, 0, BALL_SIZE, BALL_SIZE);
+        GreenfootImage ballImage = new GreenfootImage("ball.png");
+        //ballImage.setColor(Color.WHITE);
+        //ballImage.fillOval(0, 0, BALL_SIZE, BALL_SIZE);
         setImage(ballImage);
     }
 
@@ -55,7 +56,7 @@ public class Ball extends Actor
             checkBounceOffWalls();
             checkBounceOffCeiling();
             touchedFloor();
-            touchesPaddles();
+            bouceOffPaddles();
             //checkRestart();
         }
     }    
@@ -92,7 +93,8 @@ public class Ball extends Actor
     {
         if(isTouchingFloor())
         {
-            revertVertically();
+            Greenfoot.playSound("gameover.wav");
+            Greenfoot.setWorld(new GameOverWorld(true));
         }
     }
     
@@ -100,16 +102,18 @@ public class Ball extends Actor
     /**
      * 
      */
-    private void touchesPaddles()
+    private void bouceOffPaddles()
     {
-        if(getY() <= 626 && isTouching(Paddle.class))
+        if(isTouching(Paddle.class))
         {
             revertVertically();
+            touchedLowerPaddle = true;
+            Greenfoot.playSound("paddle.mp3");
         }
-        
-        if(getY() >= 35 && isTouching(EnemyPaddle.class))
+        if(touchedLowerPaddle && isTouching(EnemyPaddle.class))
         {
             revertVertically();
+            Greenfoot.playSound("paddle.mp3");
         }
     }
     
@@ -125,6 +129,7 @@ public class Ball extends Actor
             if (! hasBouncedHorizontally)
             {
                 revertHorizontally();
+                Greenfoot.playSound("wall.wav");
             }
         }
         else
@@ -144,6 +149,8 @@ public class Ball extends Actor
             if (! hasBouncedVertically)
             {
                 revertVertically();
+                Greenfoot.playSound("wall.wav");
+                touchedLowerPaddle = false;  //added
             }
         }
         else

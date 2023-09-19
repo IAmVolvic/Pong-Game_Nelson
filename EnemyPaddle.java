@@ -58,9 +58,9 @@ public class EnemyPaddle extends Actor
      */
     private void createImage()
     {
-        GreenfootImage image = new GreenfootImage(width, height);
-        image.setColor(Color.BLACK);
-        image.fill();
+        GreenfootImage image = new GreenfootImage("blue.png");
+        //image.setColor(Color.RED);
+        //image.fill();
         setImage(image);
     }
     
