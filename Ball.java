@@ -48,7 +48,7 @@ public class Ball extends Actor
     {
         if (delay > 0)
         {
-            delay--;
+            delay++;
         }
         else
         {
